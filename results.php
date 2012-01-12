@@ -30,8 +30,11 @@
 function format_rel_ts($secs) {
     // Relative timestamp for a time (e.g. 1 day)
     if ($secs > 2*24*3600) return (int)($secs / (24*3600)) . ' days';
+    else if ($secs > 0.9*24*3600) return '1 day';
     else if ($secs > 2*3600) return (int)($secs / 3600) . ' hours';
+    else if ($secs > 0.9*3600) return '1 hour';
     else if ($secs > 2*60) return (int)($secs / 60) . ' minutes';
+    else if ($secs > 0.9*60) return '1 minute';
     else return $secs . ' seconds';
 }
 

@@ -41,7 +41,8 @@ $result = mysql_query($query) or die(mysql_error());
 $query = "REPLACE INTO queues (user_id, activity_id, location) VALUES ('$user->id', '$activity', '$location');";
 $result = mysql_query($query) or die(mysql_error());
 
-$query = "SELECT *, (NOW() - time_created) AS rel_ts, " . 
+$query = "SELECT *, " .
+    "TIMESTAMPDIFF(SECOND, time_created, NOW()) AS rel_ts, " . 
     "SQRT(POW(69.1 * (users.latitude - $latitude), 2) + POW(53.0 * (users.longitude - $longitude), 2)) AS distance " .
     "FROM queues " .
     "LEFT JOIN users ON users.id = queues.user_id " .
