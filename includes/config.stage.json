@@ -1,0 +1,12 @@
+{
+    "mysql" : {
+        "host" : "127.0.0.1",
+        "database" : "somebodynu_stage",
+        "username" : "somebodynu_stage",
+        "password" : "somebodynu_stage"
+    },
+    "app" : {
+        "appId" : "275161109209937",
+        "secret" : "4f88aff4b6bc89e2e8a12512b1cce16f" 
+    }
+}

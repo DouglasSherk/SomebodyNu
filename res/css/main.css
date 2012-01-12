@@ -1,0 +1,204 @@
+@charset "utf-8";
+/* CSS Document */
+@font-face {
+	font-family: velocity;
+	src: url('velocity-font.ttf');
+}
+
+body {
+	background-color:#444;
+	font-family: Helvetica,Arial;
+}
+
+#HeaderContainer{
+	position:absolute;
+	left:10px;
+	top:0px;
+	height:12%;
+    cursor: pointer;
+}
+#HeaderContainer img{
+
+}
+#MainContainer{
+	margin:0 auto;
+	width:100%;
+	height:70%;
+	position:absolute;
+	top:90px;
+	left:0px;
+	z-index:99;
+	background-image:url(../images/background.png);
+	background-repeat:repeat-y;
+	background-size:100%;
+	box-shadow:5px 5px 10px black;
+}
+
+#FlashMessage {
+    background-color: #f5f5f5;
+    border: 1px solid #f0f0f0;
+    margin: 2.5em auto;
+    text-align: center;
+    width: 50%;
+}
+
+/*
+ * Search Bar
+ */
+
+#SearchBarContainer{
+	min-width:50%;
+	min-height:60%;
+	position:absolute;
+	left:9.5%;
+	top:20%;
+	background-color:rgba(0,0,0,0);
+}
+@media (max-width: 800px) {
+    #SearchBarContainer {
+        min-width: 70%;
+    }
+}
+
+/*#SearchBar {
+    margin: 30px auto;
+    width: 34em;
+    position: relative;
+}
+#SearchBar label {
+    display: inline;
+    font-family: "Helvetica Neue", Helvetica, Arial;
+	font-size: 225%;
+    font-style: italic;
+    margin-top: 7px;
+    width: 5em;
+    position: absolute;
+    left: 0;
+}
+#SearchBar input {
+    border: none;
+    border-radius: 2px;
+	height: 40px;
+	font-size: 2em;
+    width: 10em;*/
+#SearchBar{
+	width:60%;
+	position:absolute;
+	right: -10%;
+	top:17%;
+}
+#SearchBar input{
+	outline: medium none;
+	height:50px;
+	width:100%;
+	font-size:2em;
+	box-shadow:5px 5px 10px #333;
+    border-size: 2px inset;
+    padding: 5px;
+}
+
+#SearchBarHint{
+	background-color:#222;
+	color:white;
+    width: 50%;
+	vertical-align:middle;
+	border-radius: 15px;
+	overflow:hidden;
+	box-shadow:5px 5px 10px #333;
+	position:absolute;
+    top: 17%;
+    margin-left: -60%;
+}
+@media (max-width: 800px) {
+    #SearchBarHint {
+        margin-left: -80%;
+    }
+}
+#SearchBarHint p{
+	padding:5px;
+	overflow:hidden;
+	font-family:Helvetica, Arial, sans-serif;
+	font-size:1.2em;
+}
+
+#FooterContainer{
+	
+}
+
+#Unqueue {
+    background: url(../images/cancelSearch.png) no-repeat center bottom;
+    background-size: 100% 100%;
+	box-shadow: none;
+    color: white;
+    margin-left: 7px;
+    cursor: pointer;
+	display: block;
+    font-weight: bolder;
+    height: 40px;
+    line-height: 40px;
+	text-align: center;
+	width: 100%;
+}
+#Unqueue.disabled { display:none; }
+#ViewResults {
+    cursor: pointer;
+    float: right;
+    margin-top: 1em;
+}
+#ViewResults.disabled { display:none; }
+
+/*
+ * Popular Activities
+ */
+#PopularActivityContainer {
+    margin: -1em 0 1.5em 0;
+}
+#PopularActivityContainer h2 {
+    color: #333;
+    display: inline;
+    font-size: 100%;
+    margin-right: 10px;
+}
+.PopularActivity {
+    background-color: #f0f0ff;
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    color: #666;
+    cursor: pointer;
+    margin: 6px;
+    padding: 6px;
+}
+.PopularActivity.disabled {
+    background-color: #f0f0f0;
+}
+
+/*
+ * Autocomplete
+ */
+ul {
+    background-color: #fff;
+    list-style-type: none;
+    padding: 0;
+    width: 200px;
+}
+ul li {
+    border: 1px solid #aaa;
+    border-bottom: 0;
+    color: #000;
+    font-size: 150%;
+    margin: 0;
+    padding: 8px;
+    text-decoration: none;
+}
+ul li:active {
+    background-color: #ffe;
+}
+ul li:focus {
+    background-color: #eef;
+}
+ul li:hover {
+    background-color: #eef;
+}
+ul li:last-child {
+    border-bottom: 1px solid #aaa;
+}

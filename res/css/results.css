@@ -1,0 +1,80 @@
+@charset "utf-8";
+/* CSS Document */
+
+#ResultsContainer{
+	margin: 0 auto 40px auto;
+	width:50%;
+}
+
+.Result {
+    background-color: #ffffff;
+    border: 1px solid #aaa;
+	border-radius:3px;
+	box-shadow:1px 1px 2px #bbb;
+	font-family:Helvetica, Arial, sans-serif;
+	margin-top:0.8em;
+    padding: 8px;
+	height:60px;
+	width:100%;
+    min-width: 600px;
+    line-height: 30px;
+}
+.Result:hover{
+    background-color: #f8f8ff;
+}
+.Result img{
+	border:0px;
+}
+
+#ResultsContainer a {
+    text-decoration: none;
+}
+.Result .PrimaryInfo {
+    float: left;
+    margin-left: 10px;
+    text-align: left;
+}
+.Result .Name {
+    color: #000;
+    font-size: 160%;
+    font-weight: bold;
+    text-decoration: none;
+    position: relative;
+}
+.Result .Time {
+    color: #888;
+    font-size: 120%;
+    text-align: left;
+}
+.Result .ProfilePic {
+    border: 1px solid #aaa;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+    padding: 2px;
+}
+.Back {
+    background: url(../images/backHome.png) no-repeat center top;
+    background-size: 100% 100%;
+    color: white;
+    width: 82px;
+    height: 41px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 41px;
+    margin-top: 25px;
+}
+.MatchMe {
+    background: url(../images/go_button.png) no-repeat center top;
+    background-size: 100% 100%;
+    color: white;
+    width: 46px;
+    height: 46px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 23px;
+    float: right;
+    padding: 2px;
+}

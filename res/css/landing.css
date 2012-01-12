@@ -1,0 +1,38 @@
+@charset "utf-8";
+/* CSS Document */
+#DescriptionContainer{
+	position:relative;
+	top:20%;
+}
+#Description {
+    height: 4em;
+	width:60%;
+	margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 25px;
+	padding-bottom:70px;
+	position:relative;
+	border-bottom:1px solid grey;
+	text-shadow: 1px 1px #bbb;
+}
+#Description p {
+    font-size: 100%;
+    margin: 20px;
+    text-align: center;
+	position:absolute;
+	top:0px;
+    /*width: 10em;*/
+}
+/*#Description p:first-child {
+    position: absolute;
+    left: 0;
+}
+#Description p:last-child {
+    position: absolute;
+    right: 0;
+}*/
+
+#LoginButtonContainer{
+    margin: 30px;
+    text-align: center;
+}
