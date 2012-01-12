@@ -46,7 +46,7 @@ $query = "SELECT *, " .
     "SQRT(POW(69.1 * (users.latitude - $latitude), 2) + POW(53.0 * (users.longitude - $longitude), 2)) AS distance " .
     "FROM queues " .
     "LEFT JOIN users ON users.id = queues.user_id " .
-    "WHERE ((users.location='$location' AND users.longitude = NULL AND users.latitude = NULL)" .
+    "WHERE ((users.location='$location' AND users.longitude IS NULL AND users.latitude IS NULL)" .
     /* Dumb SQL hack because SQL is retarded. */
     "OR SQRT(POW(69.1 * (users.latitude - $latitude), 2) + POW(53.0 * (users.longitude - $longitude), 2)) < 50) " . 
     "AND activity_id='$activity' " . 
