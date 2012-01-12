@@ -60,7 +60,7 @@ class User {
             $user->uid = $uid;
             $user->name = $me['name'];
             $user->email = $me['email'];
-            $user->location = strtok(',', $me['location']['name']);
+            $user->location = strtok($me['location']['name'], ',');
             $user->logoutUrl = $facebook->getLogoutUrl();
             $query = "INSERT INTO users (uid, name, location, email) VALUES ('" .
                      mysql_real_escape_string( $user->uid ) . "', '" .
