@@ -31,8 +31,8 @@ if ($unq_row = mysql_fetch_assoc($unq_result)) {
 $activity = $row['id'];
 
 $location = $user->location;
-$latitude = $user->latitude ? $user->latitude : 'null';
-$longitude = $user->longitude ? $user->longitude : 'null';
+$latitude = $user->latitude ? $user->latitude : 'NULL';
+$longitude = $user->longitude ? $user->longitude : 'NULL';
 
 $query = "DELETE FROM queues WHERE user_id='$user->id'";
 $result = mysql_query($query) or die(mysql_error());
@@ -46,7 +46,7 @@ $query = "SELECT *, " .
     "SQRT(POW(69.1 * (users.latitude - $latitude), 2) + POW(53.0 * (users.longitude - $longitude), 2)) AS distance " .
     "FROM queues " .
     "LEFT JOIN users ON users.id = queues.user_id " .
-    "WHERE ((users.location='$location' AND users.longitude = null AND users.latitude = null)" .
+    "WHERE ((users.location='$location' AND users.longitude = NULL AND users.latitude = NULL)" .
     /* Dumb SQL hack because SQL is retarded. */
     "OR SQRT(POW(69.1 * (users.latitude - $latitude), 2) + POW(53.0 * (users.longitude - $longitude), 2)) < 50) " . 
     "AND activity_id='$activity' " . 
