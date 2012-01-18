@@ -7,6 +7,7 @@
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
 <!--<script src="res/js/css3-mediaqueries.js"></script>-->
 <script src="res/js/jquery-1.7.1.min.js"></script>
+<script src="res/js/jquery.blockUI.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js">
 </script>
 <script src="res/js/cancelSearch.js"></script>
@@ -35,10 +36,12 @@ function foundLocation(p) {
         longitude = p.coords.longitude;
     }
 
+    $.blockUI({message: '<h1>Please wait while we fetch your location...</h1>'});
     $.post(
         "location",
         {latitude: latitude, longitude: longitude},
         function(responseText) {
+            $.unblockUI();
         },
         "html"
     );
