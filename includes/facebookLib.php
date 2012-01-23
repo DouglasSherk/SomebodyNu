@@ -97,7 +97,7 @@ class facebookLib extends Facebook
 	 * whether to throw exceptions on error or not
 	 * @var boolean 
 	 */
-	protected $throwExceptions = false;
+	protected $throwExceptions = true;
 	/**
 	 *  the response message
 	 * @var string
