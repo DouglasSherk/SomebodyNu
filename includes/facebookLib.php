@@ -52,7 +52,8 @@ class facebookLib extends Facebook
 	   * Default options for curl.
 	   */
 	  public static $CURL_OPTS = array(
-	    CURLOPT_CONNECTTIMEOUT => 10,
+        CURLOPT_CAINFO         => 'ca-certs.crt',
+	    CURLOPT_CONNECTTIMEOUT => 20,
 	    CURLOPT_RETURNTRANSFER => true,
 	    CURLOPT_TIMEOUT        => 60,
 	    CURLOPT_FRESH_CONNECT  => 1,
