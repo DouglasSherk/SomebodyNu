@@ -88,9 +88,12 @@ EOH;
         $html = <<<EOH
         <p>You must either share your location to SomebodyNu or set it on Facebook to get any matches.</p>
 EOH;
+        Stats::poll("nolocation", "", "", "", "", $user->id);
     }
     echo $html;
 }
+
+Stats::poll("matches", $activity, $user->location, $matches, "", $user->id);
 ?>
         <div class="Back" onclick="window.location='.'">Back</div>
     </div>

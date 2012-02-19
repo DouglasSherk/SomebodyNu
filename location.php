@@ -38,6 +38,8 @@ mysql_query($query);
 $user->latitude = $latitude;
 $user->longitude = $longitude;
 
+Stats::poll("location", $latitude, $longitude, $user->location, "", $user->id);
+
 // Old code to reverse lookup.
 /*
 $request_url = "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng=" . $latitude . "," . $longitude;
