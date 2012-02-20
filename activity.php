@@ -83,6 +83,18 @@ EOH;
 <div id="MainContainer">
  
 <?php
+    if (isset($_SESSION['partial_name'])) {
+?>
+        <div id="FlashMessage">
+            <p>We've sent <?php echo $_SESSION['partial_name']; ?></a> your request. We'll let you know if we hear back from them.</p>
+        </div>
+<?php
+        unset($_SESSION['partial_name']);
+        unset($_SESSION['partial_uid']);
+    }
+?>
+
+<?php
     if (isset($_SESSION['matched_name'])) {
 ?>
         <div id="FlashMessage">
@@ -124,7 +136,7 @@ EOH;
         }
 ?>
             </div>
-            <div id="PopularActivityContainer">
+            <div id="PopularActivityContainer" class="<?php echo $is_disabled ? '' : 'noqueue'; ?>">
                 <h2>What's Popular?</h2>
 <?php
         // List popular activities in decreasing order of popularity
@@ -181,7 +193,9 @@ EOH;
                         success: function () {
                             $('#activity').attr('disabled', false);
                             $('#activity').val('');
-                            $('#Unqueue').hide();
+                            $('#PopularActivityContainer')
+                                .addClass('noqueue');
+                            $('#Unqueue').css('visibility', 'hidden');
                             $('#ViewResults').hide();
                             $(".PopularActivity").removeClass('disabled');
                             $(".PopularActivity").each(function (){
@@ -253,6 +267,7 @@ EOH;
             });
         }
     });
+    $('#FlashMessage').fadeOut(8000);
   </script>
 </body>
 </html>

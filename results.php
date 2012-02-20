@@ -63,13 +63,15 @@ while($row = mysql_fetch_assoc($result)) {
     }
 
     $activity_id = $row['activity_id'];
+    $already_emailed = '';
+    if ($row['matched_user_id']) $already_emailed = '(already emailed)';
     $html = <<<EOH
         <a href="matchwith?user_id=$user_id&activity_id=$activity_id">
             <div name="result[]" class="Result">
                 <img class="ProfilePic" alt="Profile Picture"
                      src="https://graph.facebook.com/$uid/picture?type=square" />
                 <div class="PrimaryInfo">
-                    <div class="Name">$name</div>
+                    <div class="Name">$name $already_emailed</div>
                     <div class="Time">Waited $rel_ts ($location)</div>
                 </div>
                 <div class="MatchMe">Match Me</div>

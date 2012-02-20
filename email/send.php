@@ -1,10 +1,12 @@
 <?
+    /**
+        Args: $tmpl
+     */
     $from = "no-reply@somebody.nu";
-    $subject = "You have been matched!";
 
     //begin of HTML message
     ob_start();
-    require_once("email/email.html");
+    require_once("email/$tmpl.html");
     $message = ob_get_contents();
     ob_end_clean();
     //end of message
