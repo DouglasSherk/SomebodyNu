@@ -48,6 +48,18 @@ $query = "CREATE TABLE queues (" .
          "UNIQUE KEY(user_id, activity_id));";
 mysql_query($query) or die(mysql_error());
 
+$query = "DROP TABLE IF EXISTS partials (" .
+         "id SERIAL, " . 
+         "user_id BIGINT NOT NULL, " .
+         "matched_user_id BIGINT NOT NULL, " .
+         "activity_id BIGINT NOT NULL, " .
+         "time_created TIMESTAMP DEFAULT NOW(), " .
+         "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE, " .
+         "FOREIGN KEY (matched_user_id) REFERENCES users(id) ON DELETE CASCADE, " .
+         "PRIMARY KEY(id), " .
+         "UNIQUE KEY(user_id, matched_user_id));";
+mysql_query($query) or die(mysql_error());
+
 $query = "DROP TABLE IF EXISTS analytics;";
 mysql_query($query) or die(mysql_error());
 $query = "CREATE TABLE analytics (" .
