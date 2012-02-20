@@ -50,10 +50,15 @@ $query = "INSERT INTO partials (user_id, matched_user_id, activity_id) " .
          "VALUES ($user->id, $user_id, $activity_id)";
 mysql_query($query) or die('You\'ve already sent this person a match request!');
 
+<<<<<<< HEAD
+//$query = "DELETE FROM queues WHERE (user_id='$user_id' OR user_id='$user->id') AND activity_id='$activity_id';";
+//mysql_query($query) or die(mysql_error());
+=======
 $token = hash('md5', 'dfsnib9' . mysql_insert_id());
 $tmpl = 'request';
 $subject = "You got a match request!";
 include_once("email/send.php");
+>>>>>>> 84409af7cdc8f7feb3e0c9640580dffe87664a7b
 
 $_SESSION['partial_name'] = $name2;
 $_SESSION['partial_uid'] = $uid2;
