@@ -16,21 +16,32 @@ $query = "CREATE TABLE analytics (" .
          "value INT(11), " .
          "time TIMESTAMP DEFAULT NOW()" .
          ");";
+<<<<<<< HEAD
 mysql_query($query) or die(mysql_error());
 
 $query = "DROP TABLE IF EXISTS partials (" .
+=======
 mysql_query($query) or die(mysql_error());*/
 
 mysql_query('DROP TABLE partials');
 $query = "CREATE TABLE partials (" .
+>>>>>>> 84409af7cdc8f7feb3e0c9640580dffe87664a7b
          "id SERIAL, " . 
          "user_id BIGINT NOT NULL, " .
          "matched_user_id BIGINT NOT NULL, " .
          "activity_id BIGINT NOT NULL, " .
+<<<<<<< HEAD
+=======
          "active INTEGER NOT NULL DEFAULT 1," .
+>>>>>>> 84409af7cdc8f7feb3e0c9640580dffe87664a7b
          "time_created TIMESTAMP DEFAULT NOW(), " .
          "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE, " .
          "FOREIGN KEY (matched_user_id) REFERENCES users(id) ON DELETE CASCADE, " .
          "PRIMARY KEY(id), " .
          "UNIQUE KEY(user_id, matched_user_id));";
+<<<<<<< HEAD
 mysql_query($query) or die(mysql_error());
+
+=======
+mysql_query($query);
+>>>>>>> 84409af7cdc8f7feb3e0c9640580dffe87664a7b
