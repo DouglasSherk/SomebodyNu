@@ -64,7 +64,7 @@ while($row = mysql_fetch_assoc($result)) {
 
     $activity_id = $row['activity_id'];
     $already_emailed = '';
-    if ($row['matched_user_id']) $already_emailed = '(already emailed)';
+    if ($row['matched_user_id'] && $row['active'] == 1) $already_emailed = '(already emailed)';
     $html = <<<EOH
         <a href="matchwith?user_id=$user_id&activity_id=$activity_id">
             <div name="result[]" class="Result">
