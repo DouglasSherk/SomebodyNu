@@ -1,4 +1,6 @@
 <?
+    include_once('email/postageapp.php');
+
     $from = "no-reply@somebody.nu";
     $subject = "You have been matched!";
 
@@ -15,4 +17,6 @@
     //$headers .= "Cc: [email]maa@p-i-s.cXom[/email]";
     //$headers .= "Bcc: [email]email@maaking.cXom[/email]";
     
-    mail($to, $subject, $message, $headers);
+ //   mail($to, $subject, $message, $headers);
+
+    PostageApp::mail($to, $subject, $message, $headers);

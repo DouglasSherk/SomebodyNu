@@ -39,12 +39,12 @@ $activity = $row['name'];
 
 include_once("email/send.php");
 
-$query = "DELETE FROM queues WHERE (user_id='$user_id' OR user_id='$user->id') AND activity_id='$activity_id';";
-mysql_query($query) or die(mysql_error());
+//$query = "DELETE FROM queues WHERE (user_id='$user_id' OR user_id='$user->id') AND activity_id='$activity_id';";
+//mysql_query($query) or die(mysql_error());
 
-$_SESSION['matched_name'] = $name2;
-$_SESSION['matched_uid'] = $uid2;
+$_SESSION['partial_name'] = $name2;
+$_SESSION['partial_uid'] = $uid2;
 
-Stats::poll("match", $user_id, $location, $activity_id, "", $user->id);
+Stats::poll("partial", $user_id, $location, $activity_id, "", $user->id);
 
 header('Location: /');
