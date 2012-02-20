@@ -83,30 +83,6 @@ EOH;
 <div id="MainContainer">
  
 <?php
-    if (isset($_SESSION['partial_name'])) {
-?>
-        <div id="FlashMessage">
-            <p>We've sent <?php echo $_SESSION['partial_name']; ?></a> your request. We'll let you know if we hear back from them.</p>
-        </div>
-<?php
-        unset($_SESSION['partial_name']);
-        unset($_SESSION['partial_uid']);
-    }
-?>
-
-<?php
-    if (isset($_SESSION['matched_name'])) {
-?>
-        <div id="FlashMessage">
-            <p>You've been matched with <a href="https://facebook.com/<?php echo $_SESSION['matched_uid']; ?>"><?php echo $_SESSION['matched_name']; ?></a>! You should receive an email shortly.</p>
-        </div>
-<?php
-        unset($_SESSION['matched_name']);
-        unset($_SESSION['matched_uid']);
-    }
-?>
-
-<?php
         $result = mysql_query(
             "SELECT queues.user_id, activities.name " .
             "FROM activities, queues " .
@@ -235,6 +211,30 @@ EOH;
     </div>
 </div>
 
+<?php
+    if (isset($_SESSION['partial_name'])) {
+?>
+        <div id="FlashMessage">
+            <p>We've sent <?php echo $_SESSION['partial_name']; ?></a> your request. We'll let you know if we hear back from them.</p>
+        </div>
+<?php
+        unset($_SESSION['partial_name']);
+        unset($_SESSION['partial_uid']);
+    }
+?>
+
+<?php
+    if (isset($_SESSION['matched_name'])) {
+?>
+        <div id="FlashMessage">
+            <p>You've been matched with <a href="https://facebook.com/<?php echo $_SESSION['matched_uid']; ?>"><?php echo $_SESSION['matched_name']; ?></a>! You should receive an email shortly.</p>
+        </div>
+<?php
+        unset($_SESSION['matched_name']);
+        unset($_SESSION['matched_uid']);
+    }
+?>
+
 <script type="text/javascript">
     var memo = {};
     $('.ui-menu-item').live('click', function() {
@@ -267,7 +267,7 @@ EOH;
             });
         }
     });
-    $('#FlashMessage').fadeOut(8000);
+    $('#FlashMessage').fadeOut(16000);
   </script>
 </body>
 </html>

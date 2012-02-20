@@ -62,11 +62,14 @@ body {
 
 #FlashMessage {
     background-color: #f5f5f5;
-    border: 1px solid #f0f0f0;
-    margin: 2.5em auto;
+    border: 1px solid #555;
+    padding: 10px 30px;
     text-align: center;
-    width: 50%;
-    z-index: 100;
+    width: auto;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    margin-left: -25%;
 }
 
 /*
