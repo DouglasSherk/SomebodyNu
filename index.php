@@ -26,12 +26,15 @@
 
     // Attempt user login, handle special case if it fails.
     if (!$loggedIn) {
+        Stats::poll("view", "landing", "", "", "", $_SERVER['REMOTE_ADDR']);
         include_once("landing.php");
     // Send them to a page that exists if they're logged in.
     } else if (file_exists($file) && $file != "landing.php") {
+        Stats::poll("view", $command[0], "", "", "", $user->id);
         include_once($file);
     // If the file doesn't exist, just send them back to the main page.
     } else {
+        Stats::poll("view", "activity", "", "", "", $user->id);
         include_once("activity.php");
     }
 

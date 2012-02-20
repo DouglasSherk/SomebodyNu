@@ -45,4 +45,6 @@ mysql_query($query) or die(mysql_error());
 $_SESSION['matched_name'] = $name2;
 $_SESSION['matched_uid'] = $uid2;
 
+Stats::poll("match", $user_id, $location, $activity_id, "", $user->id);
+
 header('Location: /');
