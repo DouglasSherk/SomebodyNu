@@ -59,7 +59,27 @@ if (navigator.geolocation) {
 </head>
 
 <body>
-<div id="HeaderContainer" onclick="window.location='.'"><img src="res/images/logo.png"/ alt="logo"></div>
+<div id="HeaderContainer">
+    <img class="logo" src="res/images/logo.png" alt="logo" onclick="window.location='.'" />
+    <div id="ProfilePicList">
+        <span id="ProfilePicListTitle">A few people you might meet...</span>
+<?php
+        $result = mysql_query(
+            "SELECT distinct uid FROM users ORDER BY RAND() LIMIT 20 ");    
+        $first = true;
+        while ($row = mysql_fetch_assoc($result)) {
+            $uid = $row['uid'];
+            $classes = '';
+            if ($first) $classes .= 'first';
+            echo <<<EOH
+    <img class="ProfilePic $classes" alt="Profile Picture"
+         src="https://graph.facebook.com/$uid/picture?type=square" />
+EOH;
+            $first = false;
+        }
+?>
+    </div>
+</div>
 <div id="MainContainer">
  
 <?php
@@ -108,24 +128,41 @@ if (navigator.geolocation) {
                 <h2>What's Popular?</h2>
 <?php
         // List popular activities in decreasing order of popularity
-        $query = "SELECT name FROM activities, queues " .
+        $query = "SELECT name, COUNT(queues.id) as n " .
+        " FROM activities, queues " .
         " WHERE activities.id = queues.activity_id " .
         " AND user_id <> " . $user->id .
         " GROUP BY activities.id " .
-        " ORDER BY COUNT(queues.id)" .
-        " LIMIT 5;";
+        " ORDER BY COUNT(queues.id) DESC";
         $result = mysql_query($query) or die(mysql_error());
+        $maxn = null;
+        $i = 0;
+        $out_table = array();  // key:name, val:html
         while ($row = mysql_fetch_assoc($result)) {
             $name = $row['name'];
+            $n = $row['n'];
+            if (!$maxn) $maxn = $n;
             $is_item_disabled = ($is_disabled && !($name == $activity));
             $class = $is_item_disabled ? "disabled" : "";
             $onclick_n = "queue('$name')";
             $onclick = $is_item_disabled ? "" : $onclick_n;
-            $html = <<<EOH
-            <span class="PopularActivity $class" onclick="$onclick" data-onclick-n="$onclick_n">
-                $name
-            </span>
+            if ($i < 6) {
+                $r = 255;
+                $g = $b = min(255 - intval(255 * ($n / $maxn)), 150);
+                $hotness_html = <<<EOH
+                    <span class="Hot" style="color:rgb($r,$g,$b)">[Hot!]</span>
 EOH;
+            } else {
+                $hotness_html = '';
+            }
+            $html = <<<EOH
+            <span class="PopularActivity $class" onclick="$onclick" data-onclick-n="$onclick_n">$name$hotness_html</span>
+EOH;
+            $out_table[$name] = $html;
+            ++$i;
+        }
+        asort($out_table);
+        foreach ($out_table as $html) {
             echo $html;
         }
 ?>
