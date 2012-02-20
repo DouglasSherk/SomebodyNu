@@ -3,7 +3,7 @@ chdir("..");
 require_once("includes/config.php");
 Database::connect();
 
-$query = "DROP TABLE IF EXISTS analytics;";
+/*$query = "DROP TABLE IF EXISTS analytics;";
 mysql_query($query) or die(mysql_error());
 $query = "CREATE TABLE analytics (" .
          "id SERIAL, " .
@@ -19,14 +19,18 @@ $query = "CREATE TABLE analytics (" .
 mysql_query($query) or die(mysql_error());
 
 $query = "DROP TABLE IF EXISTS partials (" .
+mysql_query($query) or die(mysql_error());*/
+
+mysql_query('DROP TABLE partials');
+$query = "CREATE TABLE partials (" .
          "id SERIAL, " . 
          "user_id BIGINT NOT NULL, " .
          "matched_user_id BIGINT NOT NULL, " .
          "activity_id BIGINT NOT NULL, " .
+         "active INTEGER NOT NULL DEFAULT 1," .
          "time_created TIMESTAMP DEFAULT NOW(), " .
          "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE, " .
          "FOREIGN KEY (matched_user_id) REFERENCES users(id) ON DELETE CASCADE, " .
          "PRIMARY KEY(id), " .
          "UNIQUE KEY(user_id, matched_user_id));";
 mysql_query($query) or die(mysql_error());
-

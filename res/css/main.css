@@ -66,6 +66,7 @@ body {
     margin: 2.5em auto;
     text-align: center;
     width: 50%;
+    z-index: 100;
 }
 
 /*
@@ -172,7 +173,7 @@ body {
 	text-align: center;
 	width: 100%;
 }
-#Unqueue.disabled { display:none; }
+#Unqueue.disabled { visibility: hidden; }
 #ViewResults {
     cursor: pointer;
     float: right;
@@ -193,6 +194,9 @@ body {
     #PopularActivityContainer {
         width: auto;
     }
+}
+#PopularActivityContainer.noqueue {
+    bottom: 60px;
 }
 #PopularActivityContainer h2 {
     color: #333;

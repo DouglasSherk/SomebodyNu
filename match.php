@@ -41,17 +41,18 @@ $result = mysql_query($query) or die(mysql_error());
 $query = "REPLACE INTO queues (user_id, activity_id, location) VALUES ('$user->id', '$activity', '$location');";
 $result = mysql_query($query) or die(mysql_error());
 
-$query = "SELECT *, " .
-    "TIMESTAMPDIFF(SECOND, time_created, NOW()) AS rel_ts, " . 
+$query = "SELECT users.*, queues.*, partials.matched_user_id, " .
+    "TIMESTAMPDIFF(SECOND, queues.time_created, NOW()) AS rel_ts, " . 
     "SQRT(POW(69.1 * (users.latitude - $latitude), 2) + POW(53.0 * (users.longitude - $longitude), 2)) AS distance " .
     "FROM queues " .
     "LEFT JOIN users ON users.id = queues.user_id " .
-    "WHERE ((users.location='$location' AND users.longitude IS NULL AND users.latitude IS NULL)" .
+    "LEFT JOIN partials ON (users.id = partials.matched_user_id AND partials.user_id = $user->id) " .
+    "WHERE ((users.location='$location' AND users.longitude IS NULL AND users.latitude IS NULL )" .
     /* Dumb SQL hack because SQL is retarded. */
     "OR SQRT(POW(69.1 * (users.latitude - $latitude), 2) + POW(53.0 * (users.longitude - $longitude), 2)) < 50) " . 
-    "AND activity_id='$activity' " . 
-    "AND user_id <> '$user->id' " . 
-    "ORDER BY distance, time_created DESC " . 
+    "AND queues.activity_id='$activity' " . 
+    "AND queues.user_id <> '$user->id' " . 
+    "ORDER BY distance, queues.time_created DESC " . 
     "LIMIT 4;";
 $result = mysql_query($query) or die(mysql_error());
 
