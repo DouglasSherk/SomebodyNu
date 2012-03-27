@@ -48,7 +48,9 @@ $query = "CREATE TABLE queues (" .
          "UNIQUE KEY(user_id, activity_id));";
 mysql_query($query) or die(mysql_error());
 
-$query = "DROP TABLE IF EXISTS partials (" .
+$query = "DROP TABLE IF EXISTS partials;";
+mysql_query($query) or die(mysql_error());
+$query = "CREATE TABLE partials (" .
          "id SERIAL, " . 
          "user_id BIGINT NOT NULL, " .
          "matched_user_id BIGINT NOT NULL, " .
@@ -72,5 +74,5 @@ $query = "CREATE TABLE analytics (" .
          "genus VARCHAR(128), " .
          "value INT(11), " .
          "time TIMESTAMP DEFAULT NOW(), " .
-         ");";
+         "PRIMARY KEY(id));";
 mysql_query($query) or die(mysql_error());
