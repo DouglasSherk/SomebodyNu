@@ -78,3 +78,24 @@ $query = "CREATE TABLE analytics (" .
          "value INT(11), " .
          "time TIMESTAMP DEFAULT NOW())";
 mysql_query($query) or die(mysql_error());
+
+$query = "DROP TABLE IF EXISTS groups;";
+mysql_query($query) or die(mysql_error());
+$query = "CREATE TABLE groups (" .
+         "id SERIAL," .
+         "activity_id BIGINT NOT NULL, " .
+         "time_created TIMESTAMP DEFAULT NOW(), " .
+         "FOREIGN KEY (activity_id) REFERENCES activities(id) ON DELETE CASCADE, " .
+         "PRIMARY KEY(id));";
+mysql_query($query) or die(mysql_error());
+
+$query = "DROP TABLE IF EXISTS group_members;";
+mysql_query($query) or die(mysql_error());
+$query = "CREATE TABLE group_members( " .
+         "id SERIAL," .
+         "user_id BIGINT NOT NULL, " .
+         "group_id BIGINT NOT NULL, " .
+         "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE, " .
+         "FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE, " .
+         "PRIMARY KEY(id));";
+mysql_query($query) or die(mysql_error());
