@@ -27,6 +27,7 @@ if (mysql_num_rows($result) != 1) {
 
 $row = mysql_fetch_assoc($result);
 
+$from = $user->email;
 $to = $row['email'];
 $uid1 = $user->uid;
 $name1 = $user->name;
