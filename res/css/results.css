@@ -29,6 +29,46 @@
 #ResultsContainer a {
     text-decoration: none;
 }
+.Result .NewGroup {
+    color: #000;
+    font-size: 120%;
+    font-weight: normal;
+    margin-top: 14px;
+    text-align: right;
+    text-decoration: none;
+    /*float: right;
+    margin-right: 30px;*/
+    float: left;
+    margin-left: 30px;
+}
+.Result .LFNum {
+    color: #000;
+    float: left;
+    margin-top: 14px;
+    margin-left: 20px;
+}
+.Result .NewGroupDetails {
+    display: none;
+    margin-top: 14px;
+    /*float: left;
+    margin-left: 20px;*/
+}
+.Result .NewGroupLeftCaption {
+    color: #000;
+    margin-left: 15px;
+}
+.Result .GroupSizeBtn {
+    border: 1px solid #aaa;
+    color: #000;
+    margin-left: 10px;
+    padding: 5px;
+    -moz-box-shadow: -1px 1px 3px #888;
+    -webkit-box-shadow: -1px 1px 3px #888;
+    box-shadow: -1px 1px 3px #888;
+}
+.Result .GroupSizeBtn:hover {
+    background-color: #e0e0ff;
+}
 .Result .PrimaryInfo {
     float: left;
     margin-left: 10px;
