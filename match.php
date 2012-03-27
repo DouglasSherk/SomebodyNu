@@ -42,21 +42,28 @@ if ($participants == 2) {
     // Add this user to the list until they pick someone to be matched with.
     $query = "REPLACE INTO queues (user_id, activity_id, location) VALUES ('$user->id', '$activity', '$location');";
     $result = mysql_query($query) or die(mysql_error());
+
+    $query = "SELECT users.*, queues.*, partials.matched_user_id, " .
+        "TIMESTAMPDIFF(SECOND, queues.time_created, NOW()) AS rel_ts, " . 
+        "SQRT(POW(69.1 * (users.latitude - $latitude), 2) + POW(53.0 * (users.longitude - $longitude), 2)) AS distance " .
+        "FROM queues " .
+        "LEFT JOIN users ON users.id = queues.user_id " .
+        "LEFT JOIN partials ON (users.id = partials.matched_user_id AND partials.user_id = $user->id) " .
+        "WHERE ((users.location='$location' AND users.longitude IS NULL AND users.latitude IS NULL )" .
+        /* Dumb SQL hack because SQL is retarded. */
+        "OR SQRT(POW(69.1 * (users.latitude - $latitude), 2) + POW(53.0 * (users.longitude - $longitude), 2)) < 50) " . 
+        "AND queues.activity_id='$activity' " . 
+        "AND queues.user_id <> '$user->id' " . 
+        "ORDER BY distance, queues.time_created DESC " . 
+        "LIMIT 4;";
+    $result = mysql_query($query) or die(mysql_error());
+
+    include_once("results.php");
+} else {
+/*    $query = "SELECT users.*, group_members.*, " .
+        "FROM groups " .
+        "LEFT JOIN users ON users.id=group_members.user_id " .
+        "WHERE (())
+ */
+    include_once("groupResults.php");
 }
-
-$query = "SELECT users.*, queues.*, partials.matched_user_id, " .
-    "TIMESTAMPDIFF(SECOND, queues.time_created, NOW()) AS rel_ts, " . 
-    "SQRT(POW(69.1 * (users.latitude - $latitude), 2) + POW(53.0 * (users.longitude - $longitude), 2)) AS distance " .
-    "FROM queues " .
-    "LEFT JOIN users ON users.id = queues.user_id " .
-    "LEFT JOIN partials ON (users.id = partials.matched_user_id AND partials.user_id = $user->id) " .
-    "WHERE ((users.location='$location' AND users.longitude IS NULL AND users.latitude IS NULL )" .
-    /* Dumb SQL hack because SQL is retarded. */
-    "OR SQRT(POW(69.1 * (users.latitude - $latitude), 2) + POW(53.0 * (users.longitude - $longitude), 2)) < 50) " . 
-    "AND queues.activity_id='$activity' " . 
-    "AND queues.user_id <> '$user->id' " . 
-    "ORDER BY distance, queues.time_created DESC " . 
-    "LIMIT 4;";
-$result = mysql_query($query) or die(mysql_error());
-
-include_once("results.php");
