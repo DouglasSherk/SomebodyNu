@@ -17,6 +17,15 @@
       } else {
         $content['content'] = $mail_body;
       }
+
+      error_log(var_export(
+        json_encode(
+          array(
+            'api_key' => self::POSTAGE_API_KEY,
+            'arguments' => $content
+          )
+        )
+      ));
      
       return PostageApp::post(
         'send_message',
