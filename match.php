@@ -29,7 +29,7 @@ if ($unq_row = mysql_fetch_assoc($unq_result)) {
 }
 
 $activity = $row['id'];
-$participants = $row['default_count'];
+$participants = $row['default_size'];
 
 $location = $user->location;
 $latitude = $user->latitude ? $user->latitude : 'NULL';
