@@ -29,6 +29,7 @@ if ($unq_row = mysql_fetch_assoc($unq_result)) {
 }
 
 $activity = $row['id'];
+$participants = $row['default_count'];
 
 $location = $user->location;
 $latitude = $user->latitude ? $user->latitude : 'NULL';
@@ -37,9 +38,11 @@ $longitude = $user->longitude ? $user->longitude : 'NULL';
 $query = "DELETE FROM queues WHERE user_id='$user->id'";
 $result = mysql_query($query) or die(mysql_error());
 
-// Add this user to the list until they pick someone to be matched with.
-$query = "REPLACE INTO queues (user_id, activity_id, location) VALUES ('$user->id', '$activity', '$location');";
-$result = mysql_query($query) or die(mysql_error());
+if ($participants == 2) {
+    // Add this user to the list until they pick someone to be matched with.
+    $query = "REPLACE INTO queues (user_id, activity_id, location) VALUES ('$user->id', '$activity', '$location');";
+    $result = mysql_query($query) or die(mysql_error());
+}
 
 $query = "SELECT users.*, queues.*, partials.matched_user_id, " .
     "TIMESTAMPDIFF(SECOND, queues.time_created, NOW()) AS rel_ts, " . 
