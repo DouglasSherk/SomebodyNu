@@ -76,6 +76,5 @@ $query = "CREATE TABLE analytics (" .
          "family VARCHAR(128), " .
          "genus VARCHAR(128), " .
          "value INT(11), " .
-         "time TIMESTAMP DEFAULT NOW(), " .
-         "PRIMARY KEY(id));";
+         "time TIMESTAMP DEFAULT NOW())";
 mysql_query($query) or die(mysql_error());

@@ -4,7 +4,7 @@ $activity_id = (int) $_GET['activity_id'];
 
 $query = "SELECT * FROM partials " .
          "WHERE user_id=$user->id AND matched_user_id=$user_id " .
-         "AND activity_id=$activity_id AND active=1 LIMIT 1";
+         "AND activity_id=$activity_id LIMIT 1";
 $result = mysql_query($query) or die(mysql_error());
 if (mysql_num_rows($result) > 0) {
     die('This user was already emailed.');
@@ -27,6 +27,7 @@ if (mysql_num_rows($result) != 1) {
 
 $row = mysql_fetch_assoc($result);
 
+$from = $user->email;
 $to = $row['email'];
 $uid1 = $user->uid;
 $name1 = $user->name;

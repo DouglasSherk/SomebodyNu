@@ -17,7 +17,7 @@
       } else {
         $content['content'] = $mail_body;
       }
-     
+
       return PostageApp::post(
         'send_message',
         json_encode(
