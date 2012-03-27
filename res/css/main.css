@@ -34,6 +34,7 @@ body {
     position: absolute;
     top: 0;
     left: 00px;
+    min-width: 400px;
 }
 #HeaderContainer .ProfilePic.first {
     margin-left: 40px;
