@@ -11,7 +11,7 @@ $query = "CREATE TABLE activities (" .
          "default_size INT NOT NULL, " .
          "PRIMARY KEY(id), " .
          "UNIQUE KEY(name));";
-mysql_query($query) or die(mysql_error());
+mysql_query($query) or die(mysql_error());*/
 
 $data = file_get_contents('setup/activities.csv');
 $tok = strtok($data, "\n");

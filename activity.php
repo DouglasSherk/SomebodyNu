@@ -128,12 +128,16 @@ EOH;
                 <h2>What's Popular?</h2>
 <?php
         // List popular activities in decreasing order of popularity
-        $query = "SELECT name, COUNT(queues.id) as n " .
-        " FROM activities, queues " .
-        " WHERE activities.id = queues.activity_id " .
-        " AND user_id <> " . $user->id .
+        $query = "SELECT name, COUNT(queues.id) + COUNT(group_members.user_id) as n " .
+        " FROM activities " .
+        " LEFT JOIN queues ON activities.id = queues.activity_id " .
+        " LEFT JOIN groups ON activities.id = groups.activity_id " .
+        " LEFT JOIN group_members ON group_members.group_id = groups.id " .
+        " WHERE (queues.user_id <> " . $user->id . " OR queues.user_id IS NULL) " .
+        " AND (group_members.user_id <> " . $user->id . " OR group_members.user_id IS NULL) " .
         " GROUP BY activities.id " .
-        " ORDER BY COUNT(queues.id) DESC";
+        " HAVING n > 0 " .
+        " ORDER BY n DESC";
         $result = mysql_query($query) or die(mysql_error());
         $maxn = null;
         $i = 0;
