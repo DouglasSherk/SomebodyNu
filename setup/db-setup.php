@@ -99,5 +99,6 @@ $query = "CREATE TABLE group_members( " .
          "group_id BIGINT NOT NULL, " .
          "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE, " .
          "FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE, " .
-         "PRIMARY KEY(id));";
+         "PRIMARY KEY(id)," .
+         "UNIQUE KEY(user_id, group_id));";
 mysql_query($query) or die(mysql_error());

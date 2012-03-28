@@ -247,6 +247,17 @@ EOH;
     }
 ?>
 
+<?php
+    if (isset($_SESSION['group_name'])) {
+?>
+        <div id="FlashMessage">
+            <p>You are now waiting for a <?php echo $_SESSION['group_name']; ?> group. You will receive an email once they find all the players they need.</p>
+        </div>
+<?php
+        unset($_SESSION['group_name']);
+    }
+?>
+
 <script type="text/javascript">
     var memo = {};
     $('.ui-menu-item').live('click', function() {

@@ -60,10 +60,23 @@ if ($participants == 2) {
 
     include_once("results.php");
 } else {
-/*    $query = "SELECT users.*, group_members.*, " .
-        "FROM groups " .
-        "LEFT JOIN users ON users.id=group_members.user_id " .
-        "WHERE (())
- */
+    $query = "SELECT group_members.*, groups.*, users.*, " .
+             "groups.id = (SELECT group_id FROM group_members WHERE user_id=$user->id) AS userInGroup, " .
+             "groups.size - (SELECT COUNT(*) FROM group_members WHERE group_id=(SELECT group_id FROM group_members WHERE user_id=$user->id)) AS remaining " .
+             "FROM group_members " .
+             "LEFT JOIN groups ON groups.id = group_members.group_id " .
+             "LEFT JOIN users ON users.id = group_members.user_id " .
+             "WHERE groups.activity_id = $activity " .
+             "ORDER BY groups.id = (SELECT group_id FROM group_members WHERE user_id=$user->id), groups.id DESC";
+    $result = mysql_query($query) or die(mysql_error());
+
+    $userInGroup = false;
+    if ($row = mysql_fetch_assoc($result)) {
+        if ($row['userInGroup']) {
+            $userInGroup = true;
+        }
+        mysql_data_seek($result, 0);
+    }
+ 
     include_once("groupResults.php");
 }

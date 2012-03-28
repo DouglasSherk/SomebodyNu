@@ -29,6 +29,7 @@
 <div id="MainContainer"> 
     <div id="ResultsContainer">
       <h1>Matches</h1>
+<?php if (!$userInGroup) { ?>
         <a href="#" id="new-group">
             <div name="result[]" class="Result">
                 <img class="ProfilePic" alt="Profile Picture"
@@ -41,6 +42,7 @@
                 </div>
             </div>
         </a>
+<?php } ?>
 <script>
 var newgroup = $('#new-group');
 var newgroupbtn = $('.NewGroup');
@@ -93,41 +95,56 @@ function format_rel_ts($secs) {
     else return $secs . ' seconds';
 }
 
-$matches = 0;
+$matches = mysql_num_rows($result);
+$previous_group_id = null;
+$first_div = true;
+$userInGroup = false;
+$remaining = 0;
 while($row = mysql_fetch_assoc($result)) {
-    ++$matches;
-
     $name = $row['name'];
     $uid = $row['uid'];
-    $user_id = $row['user_id'];
-    $latitude = $row['latitude'] - $user->latitude;
-    $longitude = $row['longitude'] - $user->longitude;
-    $location = $row['location'];
-    $rel_ts = format_rel_ts($row['rel_ts']);
 
-    $distance = null;
-    if ($longitude || $latitude) {
-        // Cut off everything after the first decimal.
-        $distance = (int) ($row['distance'] * 10);
-        $distance = (float) $distance / 10;
-        if ($distance <= 1.0) {
-            $location .= ", very close!";
+    $activity_id = $row['activity_id'];
+    $group_id = $row['group_id'];
+    $remaining = $row['remaining'];
+
+    $userInGroup = $row['userInGroup'];
+
+    if ($previous_group_id != $group_id) {
+        if ($first_div != true) {
+            $html = <<<EOH
+                <span class="LFNum">Looking for $remaining more people</span>
+EOH;
+
+            if (!$userInGroup) {
+                $html .= '<div class="MatchMe">Match Me</div>';
+            }
+            $html .= "</div>";
+            if (!$userInGroup) { 
+                $html .= "</a>";
+            }
+            echo $html;
+        }
+        $first_div = false;
+
+        if ($userInGroup) {
+            $html = <<<EOH
+            <div name="result[]" class="Result">
+EOH;
+            echo $html;
+           
+            $first_div = false;
         } else {
-            $location .= ", $distance miles away";
+            $html = <<<EOH
+            <a href="groupmatch?group_id=$group_id&activity_id=$activity_id">
+                <div name="result[]" class="Result">
+EOH;
         }
     }
 
-    $activity_id = $row['activity_id'];
-    $already_emailed = '';
-    if ($row['matched_user_id'] && $row['active'] == 1) $already_emailed = '(already emailed)';
     $html = <<<EOH
-        <a href="matchwith?user_id=$user_id&activity_id=$activity_id">
-            <div name="result[]" class="Result">
                 <img class="ProfilePic" alt="Profile Picture"
                      src="https://graph.facebook.com/$uid/picture?type=square" />
-                <div class="MatchMe">Match Me</div>
-            </div>
-        </a>
 EOH;
     echo $html;
 }
@@ -142,6 +159,19 @@ EOH;
         <p>You must either share your location to SomebodyNu or set it on Facebook to get any matches.</p>
 EOH;
         Stats::poll("nolocation", "", "", "", "", $user->id);
+    }
+    echo $html;
+} else {
+    $html = <<<EOH
+                <span class="LFNum">Looking for $remaining more people</span>
+EOH;
+
+    if (!$userInGroup) {
+        $html .= '<div class="MatchMe">Match Me</div>';
+    }
+    $html .= "</div>";
+    if (!$userInGroup) { 
+        $html .= "</a>";
     }
     echo $html;
 }
