@@ -1,8 +1,7 @@
 <html>
     <body style="font-family: &quot;Verdana&quot;, Arial, sans-serif; font-size: 20px;">
         <table
-            background="http://dev.recmeet.apollorp.org/res/images/email-background.png"
-            height="460" width="660" style="margin: auto; padding: 30px;">
+            width="660" style="margin: auto; padding: 30px;">
             <tr height="72" width="200">
                 <td style="text-align: center;" colspan=2>
                     <img src="http://dev.recmeet.apollorp.org/res/images/logo.png" />
@@ -10,32 +9,26 @@
             </tr>
             <tr>
                 <td colspan=2>
-    Somebody has requested you as a <?php echo $activity; ?> partner!<br/>
+    You have been matched with a group to do  <?php echo $activity; ?>!<br/><br/>
 
-    Click 'accept' to accept or just ignore this email if
-    you're not interested.<br/>
-
-    <a href="http://somebody.nu/acceptmatch?token=<?php echo $token ?>">
-        Accept
-    </a>
+    Just hit "reply-all" to start communicating with your new partners! 
                 </td>
             </tr>
 <?php
 foreach ($users as $member) {
     $uid = $member['uid'];
-    $name = $member['uid'];
-    $html = <<<EOH
-            <tr>
-                <td width="100%" style="text-align: center;">
-                    <a href="http://www.facebook.com/profile.php?id=$uid">
-                        <p style="font-weight: bold;">$name</p>
-                        <img src="https://graph.facebook.com/$uid/picture?type=square" alt="Profile Picture" />
-                    </a>
-                </td>
-            </tr>
-<<<EOH;
+    $name = $member['name'];
+    $html = '<tr>' .
+                '<td width="100%" style="text-align: center;">' .
+                    '<a href="http://www.facebook.com/profile.php?id=' . $uid . '">' .
+                        '<p style="font-weight: bold;">' . $name . '</p>' .
+                        '<img src="https://graph.facebook.com/' . $uid . '/picture?type=square" alt="Profile Picture" />' .
+                    '</a>' .
+                '</td>' .
+            '</tr>';
     echo $html;
 }
+?>
             <tr style="font-size: 12px;">
                 <td colspan=2>
                     <table width="100%" style="margin-bottom: -15px;">

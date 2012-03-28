@@ -62,7 +62,7 @@ if ($participants == 2) {
 } else {
     $query = "SELECT group_members.*, groups.*, users.*, " .
              "groups.id = (SELECT group_id FROM group_members WHERE user_id=$user->id) AS userInGroup, " .
-             "groups.size - (SELECT COUNT(*) FROM group_members WHERE group_id=(SELECT group_id FROM group_members WHERE user_id=$user->id)) AS remaining " .
+             "groups.size - (SELECT COUNT(*) FROM group_members WHERE group_id=groups.id) AS remaining " .
              "FROM group_members " .
              "LEFT JOIN groups ON groups.id = group_members.group_id " .
              "LEFT JOIN users ON users.id = group_members.user_id " .

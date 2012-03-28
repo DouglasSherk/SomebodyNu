@@ -258,6 +258,17 @@ EOH;
     }
 ?>
 
+<?php
+    if (isset($_SESSION['group_name_filled'])) {
+?>
+        <div id="FlashMessage">
+            <p>You have joined a group to do <?php echo $_SESSION['group_name_filled']; ?>. You will receive an email shortly with this group's contact info.</p>
+        </div>
+<?php
+        unset($_SESSION['group_name_filled']);
+    }
+?>
+
 <script type="text/javascript">
     var memo = {};
     $('.ui-menu-item').live('click', function() {

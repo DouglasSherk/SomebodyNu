@@ -139,8 +139,10 @@ EOH;
             <a href="groupmatch?group_id=$group_id&activity_id=$activity_id">
                 <div name="result[]" class="Result">
 EOH;
+            echo $html;
         }
     }
+    $previous_group_id = $group_id;
 
     $html = <<<EOH
                 <img class="ProfilePic" alt="Profile Picture"

@@ -1,4 +1,4 @@
-<?
+<?php
     include_once('email/postageapp.php');
     $siteFrom = "no-reply@somebody.nu";
 
@@ -22,4 +22,5 @@
       "From" => $siteFrom,
       "Reply-to" => $replyTo,
     );
+
     PostageApp::mail($replyTo, $subject, $content, $headers);
