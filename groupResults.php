@@ -61,8 +61,11 @@ function createGroup(i) {
         $.blockUI({message: '<h1>Creating group...</h1>'});
         $.post(
             "newgroup",
-            { size: i }, 
+            { size: i, activity: <?php echo $activity; ?> }, 
             function(responseText) {
+                if (responseText != 'ok') {
+                    alert(responseText);
+                }
                 newgroup.html('\
     <a href="#">\
         <div name="result[]" class="Result">\

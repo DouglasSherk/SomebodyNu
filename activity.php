@@ -94,6 +94,18 @@ EOH;
         if ($row = mysql_fetch_assoc($result)) {
             $activity = $row['name'];
             $is_disabled = true;
+        } else {
+            $result = mysql_query(
+                "SELECT * FROM activities WHERE id=(" .
+                    "SELECT activity_id FROM groups WHERE id=(" .
+                        "SELECT group_id FROM group_members WHERE user_id=\"$user->id\"" .
+                    ")" .
+                ");"
+            );
+            if ($row = mysql_fetch_assoc($result)) {
+                $activity = $row['name'];
+                $is_disabled = true;
+            }
         }
 ?>
  

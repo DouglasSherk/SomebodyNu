@@ -85,6 +85,7 @@ $query = "CREATE TABLE groups (" .
          "id SERIAL," .
          "activity_id BIGINT NOT NULL, " .
          "location VARCHAR(255) NOT NULL, " .
+         "size BIGINT NOT NULL, " .
          "time_created TIMESTAMP DEFAULT NOW(), " .
          "FOREIGN KEY (activity_id) REFERENCES activities(id) ON DELETE CASCADE, " .
          "PRIMARY KEY(id));";
