@@ -35,13 +35,16 @@ if ($row = mysql_fetch_assoc($result)) {
                  "WHERE group_id = $group_id;";
         $result = mysql_query($query) or die(mysql_error());
 
+        $uid_arr = array();
         while ($row2 = mysql_fetch_assoc($result)) {
             array_push($users, array(
                 'email' => $row2['email'],
                 'name' => $row2['name'],
                 'uid' => $row2['uid']
             ));
+            $uid_arr[] = $row2['uid'];
         }
+        $uid_arr[] = $user->uid;
 
         array_push($users, array(
             'email' => $user->email,
@@ -57,6 +60,8 @@ if ($row = mysql_fetch_assoc($result)) {
 
         $tmpl = 'group';
         $subject = 'You have been matched with a group!';
+
+        Stats::poll("group filled", $row['id'], $user->location, implode(':', $uid_arr), '', $user->id);
 
         include_once('email/send-group.php');
 
