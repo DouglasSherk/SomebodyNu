@@ -20,7 +20,7 @@ if (mysql_num_rows($result) != 0) {
 
 $query = "SELECT activities.*," .
          "groups.size - (SELECT COUNT(*) FROM group_members WHERE group_id=$group_id) AS remaining " .
-         "FROM groups " .
+         "FROM groups WHERE groups.id=$group_id " .
          "LEFT JOIN activities ON activities.id = groups.activity_id";
 $result = mysql_query($query) or die(mysql_error());
 
