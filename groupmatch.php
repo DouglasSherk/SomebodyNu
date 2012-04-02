@@ -61,7 +61,7 @@ if ($row = mysql_fetch_assoc($result)) {
         $tmpl = 'group';
         $subject = 'You have been matched with a group!';
 
-        Stats::poll("group filled", $row['id'], $user->location, implode(':', $uid_arr), '', $user->id);
+        Stats::poll("groupfilled", $row['id'], $user->location, implode(':', $uid_arr), $group_id, $user->id);
 
         include_once('email/send-group.php');
 
@@ -70,6 +70,8 @@ if ($row = mysql_fetch_assoc($result)) {
         $query = "INSERT INTO group_members (id, user_id, group_id) " .
                  "VALUES(null, $user->id, $group_id);";
         mysql_query($query) or die(mysql_error());
+
+        Stats::poll("groupmatch", $row['id'], $user->location, $group_id, '', $user->id);
 
         $_SESSION['group_name'] = $row['name'];
     }
