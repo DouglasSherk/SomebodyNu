@@ -72,7 +72,7 @@ if ($participants == 2) {
 
     $userInGroup = false;
     if ($row = mysql_fetch_assoc($result)) {
-        if ($row['userInGroup']) {
+        if ($row['userInGroup'] !== null) {
             $userInGroup = true;
         }
         mysql_data_seek($result, 0);
