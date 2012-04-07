@@ -67,7 +67,7 @@ if ($participants == 2) {
              "LEFT JOIN groups ON groups.id = group_members.group_id " .
              "LEFT JOIN users ON users.id = group_members.user_id " .
              "WHERE groups.activity_id = $activity " .
-             "ORDER BY groups.id = (SELECT group_id FROM group_members WHERE user_id=$user->id), groups.id DESC";
+             "ORDER BY (SELECT group_id FROM group_members WHERE user_id=$user->id AND group_id = groups.id) IS NULL, groups.id DESC";
     $result = mysql_query($query) or die(mysql_error());
 
     $userInGroup = false;

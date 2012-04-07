@@ -109,6 +109,7 @@ while($row = mysql_fetch_assoc($result)) {
     $prev_remaining = $remaining;
     $remaining = $row['remaining'];
 
+    $prev_userInGroup = $userInGroup;
     $userInGroup = $row['userInGroup'];
 
     if ($previous_group_id != $group_id) {
@@ -117,11 +118,11 @@ while($row = mysql_fetch_assoc($result)) {
                 <span class="LFNum">Looking for $prev_remaining more people</span>
 EOH;
 
-            if (!$userInGroup) {
+            if (!$prev_userInGroup) {
                 $html .= '<div class="MatchMe">Match Me</div>';
             }
             $html .= "</div>";
-            if (!$userInGroup) { 
+            if (!$prev_userInGroup) { 
                 $html .= "</a>";
             }
             echo $html;

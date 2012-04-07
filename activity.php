@@ -171,9 +171,9 @@ EOH;
         }
 ?>
             <script>
-                function queue($activity) {
+                function queue(activity) {
                     $('#activity').attr('disabled', false);
-                    $('#activity').val($activity);
+                    $('#activity').val(activity);
                     $('#SearchBar form').submit();
                 }
                 function unqueue() {
