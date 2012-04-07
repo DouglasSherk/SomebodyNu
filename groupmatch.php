@@ -20,8 +20,9 @@ if (mysql_num_rows($result) != 0) {
 
 $query = "SELECT activities.*," .
          "groups.size - (SELECT COUNT(*) FROM group_members WHERE group_id=$group_id) AS remaining " .
-         "FROM groups WHERE groups.id=$group_id " .
-         "LEFT JOIN activities ON activities.id = groups.activity_id";
+         "FROM groups " .
+         "LEFT JOIN activities ON activities.id = groups.activity_id " .
+         "WHERE groups.id=$group_id";
 $result = mysql_query($query) or die(mysql_error());
 
 if ($row = mysql_fetch_assoc($result)) {
@@ -67,9 +68,13 @@ if ($row = mysql_fetch_assoc($result)) {
 
         $_SESSION['group_name_filled'] = $row['name'];
     } else {
-        $query = "INSERT INTO group_members (id, user_id, group_id) " .
-                 "VALUES(null, $user->id, $group_id);";
+        $query = "UPDATE group_members SET group_id=$group_id WHERE user_id=$user->id;";
         mysql_query($query) or die(mysql_error());
+        if (mysql_affected_rows() == 0) {
+            $query = "INSERT INTO group_members (id, user_id, group_id) " .
+                     "VALUES(null, $user->id, $group_id);";
+            mysql_query($query) or die(mysql_error());
+        }
 
         Stats::poll("groupmatch", $row['id'], $user->location, $group_id, '', $user->id);
 

@@ -75,6 +75,7 @@ if ($participants == 2) {
         if ($row['userInGroup']) {
             $userInGroup = true;
         }
+        var_dump($row['userInGroup']);
         mysql_data_seek($result, 0);
     }
  
